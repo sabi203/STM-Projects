@@ -1,0 +1,20 @@
+volatile uint32_t count = 0;  // Holds the count of interrupts
+
+void incrementCount() {
+  count++;
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(2, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(2), incrementCount, RISING);
+}
+
+void loop() {
+  Serial.print("Interrupt count: ");
+  noInterrupts();
+  Serial.println(count);
+  interrupts();
+  delay(100);
+}
